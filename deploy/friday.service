@@ -1,0 +1,28 @@
+[Unit]
+Description=FRIDAY local voice assistant
+After=pipewire.service wireplumber.service
+Wants=pipewire.service
+
+[Service]
+Type=simple
+ExecStart=/friday/bin/friday
+Restart=on-failure
+RestartSec=10
+WorkingDirectory=/friday
+StandardOutput=append:/friday/logs/friday-service.log
+StandardError=append:/friday/logs/friday-service.log
+
+[Install]
+WantedBy=default.target
+
+# Install:
+#   cp deploy/friday.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now friday
+#
+# A --user service runs only while you are logged in. To keep Friday running
+# headless after logout:
+#   sudo loginctl enable-linger $USER
+#
+# WorkingDirectory is deliberately /friday and NOT /friday/src/friday, because
+# src/friday/operator.py shadows Python's stdlib operator module.

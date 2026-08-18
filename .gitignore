@@ -1,0 +1,63 @@
+# ---------------------------------------------------------------------------
+# FRIDAY - things that must never reach the repository
+# ---------------------------------------------------------------------------
+
+# Secrets. secrets.env holds ANTHROPIC_API_KEY and is chmod 600 on the device.
+config/secrets.env
+*.env
+!*.env.example
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+*.p12
+.netrc
+
+# Model weights. Several GB; distributed via scripts/bootstrap.sh instead.
+models/
+!models/wakewords/
+models/wakewords/*
+!models/wakewords/README.txt
+*.gguf
+*.bin
+*.onnx
+*.pt
+*.pth
+*.safetensors
+
+# Third-party build trees, vendored and rebuilt from source on the device.
+src/whisper.cpp/
+src/llama.cpp/
+opt/
+venvs/
+*.so
+*.a
+*.o
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Runtime state produced on the device
+logs/
+tmp/
+backups/
+*.log
+*.bak
+*.bak[0-9]*
+*.wav
+*.pid
+
+# Machine-specific
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
